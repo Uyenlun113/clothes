@@ -136,11 +136,11 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"> <a href="./widgets/small-box.html" class="nav-link"> <i
+                        <li class="nav-item"> <a href="{{ url('admin/category/add') }}" class="nav-link"> <i
                                     class="nav-icon bi bi-circle"></i>
                                 <p>Thêm danh mục</p>
                             </a> </li>
-                        <li class="nav-item"> <a href="./widgets/info-box.html" class="nav-link"> <i
+                        <li class="nav-item"> <a href="{{ url('admin/category/list') }}" class="nav-link"> <i
                                     class="nav-icon bi bi-circle"></i>
                                 <p>Danh sách danh mục</p>
                             </a> </li>

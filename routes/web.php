@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,14 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/user/edit/{id}', [UsersController::class, 'edit']);
     Route::post('admin/user/edit/{id}', [UsersController::class, 'editUser']);
     Route::get('admin/user/delete/{id}', [UsersController::class, 'deleteUser']);
+
+    //Category
+     Route::get('admin/category/list', [CategoryController::class, 'listCategory']);
+    Route::get('admin/category/add', [CategoryController::class, 'add']);
+    Route::post('admin/category/add', [CategoryController::class, 'addCategory']);
+    Route::get('admin/category/edit/{id}', [CategoryController::class, 'edit']);
+    Route::post('admin/category/edit/{id}', [CategoryController::class, 'editCategory']);
+    Route::get('admin/category/delete/{id}', [CategoryController::class, 'deleteCategory']);
     
 });
 
