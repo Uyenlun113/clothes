@@ -22,14 +22,14 @@ class CategoryController extends Controller
     public function addCategory(Request $request)
     {
         request()->validate([
-            'name' => 'required|string|min:6',
-           
-            
+            'urlCategory' => 'required|unique:categories',    
         ]);
         $category = new Categories;
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->status = $request->status;
+        $category->name = trim($request->name);
+        $category->description = trim($request->description);
+        $category->keywords = trim($request->keywords);
+        $category->urlCategory = trim($request->urlCategory);
+        $category->status = trim($request->status);
         $category->save();
 
         return redirect('admin/category/list')->with('success', "Thêm mới thành công");
@@ -37,15 +37,17 @@ class CategoryController extends Controller
      public function edit($id)
     {
         $data['categorie'] = Categories::getCatgoryById($id);
-        $data['header_title'] = "Cập nhật tài khoản";
+        $data['header_title'] = "Cập nhật danh mục";
         return view('admin.category.edit', $data);
     }
     public function editCategory($id, Request $request)
     {
         $category = Categories::getCatgoryById($id);
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->status = $request->status;
+        $category->name = trim($request->name);
+        $category->description = trim($request->description);
+        $category->keywords = trim($request->keywords);
+        $category->urlCategory = trim($request->urlCategory);
+        $category->status = trim($request->status);
         $category->save();
 
         return redirect('admin/category/list')->with('success', "Cập nhật thành công");

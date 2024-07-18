@@ -12,11 +12,22 @@
                         <div class="mb-3"> <label for="exampleInputEmail1" class="form-label">Name </label> <input
                                 type="name" class="form-control" value="{{ $categorie->name }}" name="name"
                                 id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div style="color: red">{{ $errors->first('name') }}</div>
+
                         </div>
                         <div class="mb-3"> <label for="exampleInputEmail1" class="form-label">Mô tả </label> <input
                                 type="text" class="form-control" value="{{ $categorie->description }}" name="description"
                                 id="exampleInputEmail1" aria-describedby="emailHelp">
                         </div>
+                        <div class="mb-3"> <label for="exampleInputEmail1" class="form-label">Từ khóa </label> <input
+                                type="text" class="form-control" value="{{ $categorie->keywords }}" name="keywords"
+                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3"> <label for="exampleInputEmail1" class="form-label">Đường dẫn </label> <input
+                                type="name" class="form-control" value="{{ $categorie->urlCategory }}" name="urlCategory"
+                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+
                         <div class="form-group  ">
                             <label for="exampleInputEmail1" class="form-label">Status </label>
                             <select name="status" id="" class="form-control">

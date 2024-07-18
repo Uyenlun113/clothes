@@ -148,6 +148,26 @@
                     </ul>
 
                 </li>
+                <li class="nav-item"> <a href="#" class="nav-link"> <i
+                            class="nav-icon bi bi-box-seam-fill"></i>
+                        <p>
+                            Danh mục phụ
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"> <a href="{{ url('admin/sub_category/add') }}" class="nav-link"> <i
+                                    class="nav-icon bi bi-circle"></i>
+                                <p>Thêm danh mục phụ</p>
+                            </a> </li>
+                        <li class="nav-item"> <a href="{{ url('admin/sub_category/list') }}" class="nav-link"> <i
+                                    class="nav-icon bi bi-circle"></i>
+                                <p>Danh sách danh mục phụ</p>
+                            </a> </li>
+
+                    </ul>
+
+                </li>
                 <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-people"></i>
                         <p>
                             Tài khoản
