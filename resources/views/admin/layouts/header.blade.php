@@ -187,25 +187,40 @@
                     </ul>
 
                 </li>
-                <li class="nav-item"> <a href="#" class="nav-link"> <i
-                            class="nav-icon bi bi-box-seam-fill"></i>
+                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam"></i>
                         <p>
                             Sản phẩm
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"> <a href="./widgets/small-box.html" class="nav-link"> <i
+                        <li class="nav-item"> <a href="{{ url('admin/product/add') }}" class="nav-link"> <i
                                     class="nav-icon bi bi-circle"></i>
                                 <p>Thêm sản phẩm</p>
                             </a> </li>
-                        <li class="nav-item"> <a href="./widgets/info-box.html" class="nav-link"> <i
+                        <li class="nav-item"> <a href="{{ url('admin/product/list') }}" class="nav-link"> <i
                                     class="nav-icon bi bi-circle"></i>
                                 <p>Danh sách sản phẩm</p>
                             </a> </li>
-
                     </ul>
-
+                </li>
+                <li class="nav-item"> <a href="#" class="nav-link"> <i
+                            class="nav-icon bi bi-palette-fill"></i>
+                        <p>
+                            Màu
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"> <a href="{{ url('admin/color/add') }}" class="nav-link"> <i
+                                    class="nav-icon bi bi-circle"></i>
+                                <p>Thêm màu sản phẩm</p>
+                            </a> </li>
+                        <li class="nav-item"> <a href="{{ url('admin/product/list') }}" class="nav-link"> <i
+                                    class="nav-icon bi bi-circle"></i>
+                                <p>Danh sách màu sản phẩm</p>
+                            </a> </li>
+                    </ul>
                 </li>
                 <li class="nav-item menu-open"> <a href="{{ url('admin/logout') }}" class="nav-link active"> <i
                             class="nav-icon bi bi-box-arrow-right"></i>

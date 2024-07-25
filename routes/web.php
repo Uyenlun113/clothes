@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ColorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,21 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/sub_category/edit/{id}', [SubCategoryController::class, 'edit']);
     Route::post('admin/sub_category/edit/{id}', [SubCategoryController::class, 'editSubCategory']);
     Route::get('admin/sub_category/delete/{id}', [SubCategoryController::class, 'deleteSubCategory']);
+
+    //Color
+    Route::get('admin/color/list', [ColorController::class, 'listColor']);
+    Route::get('admin/color/add', [ColorController::class, 'add']);
+    Route::post('admin/color/add', [ColorController::class, 'addColor']);
+    Route::get('admin/color/edit/{id}', [ColorController::class, 'edit']);
+    Route::post('admin/color/edit/{id}', [ColorController::class, 'editColor']);
+    Route::get('admin/color/delete/{id}', [ColorController::class, 'deleteColor']);
+
+    //product
+    Route::get('admin/product/list', [ProductController::class, 'listProduct']);
+    Route::get('admin/product/add', [ProductController::class, 'add']);
+    Route::post('admin/product/add', [ProductController::class, 'addProduct']);
+    Route::get('admin/product/edit/{id}', [ProductController::class, 'edit']);
+    Route::post('admin/product/edit/{id}', [ProductController::class, 'editProduct']);
 });
 
 
