@@ -12,6 +12,12 @@ class Product extends Model
     static public function getProductById($id){
         return self::find($id);
     }
+    static public function getListProduct(){
+        return self::select('products.*')
+            ->where('is_delete','=',0)
+            ->orderBy('id', 'desc')
+            ->paginate(20);
+    }
     static public function checkUrl($url){
         return self::where('url', "=", $url)->count();
     }

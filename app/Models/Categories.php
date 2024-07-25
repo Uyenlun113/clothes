@@ -15,6 +15,7 @@ class Categories extends Model
             ->orderBy('id', 'desc')
             ->get();
     }
+     
     static public function getCatgoryById($id){
         return Categories::find($id);
     }

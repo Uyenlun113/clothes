@@ -216,7 +216,7 @@
                                     class="nav-icon bi bi-circle"></i>
                                 <p>Thêm màu sản phẩm</p>
                             </a> </li>
-                        <li class="nav-item"> <a href="{{ url('admin/product/list') }}" class="nav-link"> <i
+                        <li class="nav-item"> <a href="{{ url('admin/color/list') }}" class="nav-link"> <i
                                     class="nav-icon bi bi-circle"></i>
                                 <p>Danh sách màu sản phẩm</p>
                             </a> </li>

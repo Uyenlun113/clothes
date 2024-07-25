@@ -64,5 +64,9 @@ class SubCategoryController extends Controller
         return redirect()->back()->with('success', "Xóa thành công");
     }
 
+    public function getSubCategory( Request $request){
+        
+    }
+
     //
 }

@@ -40,9 +40,11 @@ class ProductController extends Controller
     public function edit($product_id){
          $product = Product::getProductById($product_id);
          if(!empty($product)){
+            $data['categories'] = Categories::getListCategory();
+             $data['subcategories'] = SubCategory::getListSubCategory();
             $data['product'] = $product;
             $data['header_title'] = 'Edit product';
-            return view('admin.product.edit');
+            return view('admin.product.edit',$data);
          }
         
     }

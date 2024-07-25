@@ -13,14 +13,7 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>Name</th>
-                            <th>Category</th>
-                            <th>Sub Category</th>
-                            <th>Size</th>
                             <th>URL</th>
-                            <th>Price</th>
-                            <th>Old Price</th>
-                            <th>Descrition</th>
-                            <th>Short Descrition</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -30,10 +23,7 @@
                             <tr class="align-middle">
                                 <td>{{ $value->id }}</td>
                                 <td>{{ $value->name }}</td>
-                                <td>{{ $value->keywords }}</td>
                                 <td>{{ $value->url }}</td>
-                                <td>{{ $value->name_categorie }}</td>
-                                <td class="description">{{ $value->description }}</td>
                                 <td>{{ $value->status == 0 ? 'Active' : 'Inactive' }}</td>
                                 <td>
                                     <a href="{{ url('admin/product/edit/' . $value->id) }}" class="btn btn-warning">Sửa</a>
@@ -45,7 +35,7 @@
                     </tbody>
                 </table>
                 <div style="padding: 10px;float: right;">
-                    {!! $sub->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                    {!! $product->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
                 </div>
             </div> <!-- /.card-body -->
         </div> <!-- /.card -->

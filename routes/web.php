@@ -48,6 +48,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/sub_category/edit/{id}', [SubCategoryController::class, 'editSubCategory']);
     Route::get('admin/sub_category/delete/{id}', [SubCategoryController::class, 'deleteSubCategory']);
 
+    Route::get('admin/get_sub_category', [SubCategoryController::class, 'getSubCategory']);
+
+    
+
     //Color
     Route::get('admin/color/list', [ColorController::class, 'listColor']);
     Route::get('admin/color/add', [ColorController::class, 'add']);
