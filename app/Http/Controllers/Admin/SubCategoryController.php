@@ -64,9 +64,19 @@ class SubCategoryController extends Controller
         return redirect()->back()->with('success', "Xóa thành công");
     }
 
-    public function getSubCategory( Request $request){
-        
+    public function get_sub_category(Request $request)
+{
+    $category_id = $request->id;
+    $get_sub_category = SubCategory::getSubCategoryId($category_id);
+    $html = '';
+    $html .= '<option value="">Select</option>';
+    foreach ($get_sub_category as $value) {
+        $html .= '<option value="' . $value->id . '">' . $value->name . '</option>';
     }
+        $json['html'] = $html;
+        echo json_encode($json);
+}
+
 
     //
 }

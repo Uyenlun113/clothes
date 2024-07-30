@@ -18,4 +18,12 @@ class Color extends Model
             ->orderBy('id', 'desc')
             ->get();
     }
+    static public function getColor(){
+        return self::select('color.*')
+            ->where('is_delete', '=', 0)
+            ->where('status', '=', 0)
+            ->orderBy('name', 'asc')
+            ->get();
+    }
+    
 }

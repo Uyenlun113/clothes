@@ -15,9 +15,17 @@ class SubCategory extends Model
             ->where('subcategories.status', 0)
             ->where('subcategories.is_delete', 0)
             ->orderBy('subcategories.id', 'desc')
-            ->paginate(5);
+            ->paginate(15);
     }
     static public function getSubCatgoryById($id){
         return self::find($id);
+    }
+    static public function getSubCategoryId($category_id){
+        return self::select('subcategories.*')
+            ->where('status', 0)
+            ->where('is_delete', 0)
+            ->where('category_id', '=',$category_id)
+            ->orderBy('name', 'asc')
+            ->get();
     }
 }

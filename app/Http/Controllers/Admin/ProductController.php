@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Categories;
 use App\Models\SubCategory;
+use App\Models\Color;
+use App\Models\ProductColor;
+use App\Models\ProductSize;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -37,17 +40,65 @@ class ProductController extends Controller
         $product->save();
         return redirect('admin/product/edit/' . $product->id);
     }
-    public function edit($product_id){
-         $product = Product::getProductById($product_id);
-         if(!empty($product)){
+    public function edit($product_id)
+    {
+        $product = Product::getProductById($product_id);
+        if (!empty($product)) {
             $data['categories'] = Categories::getListCategory();
-             $data['subcategories'] = SubCategory::getListSubCategory();
+            $data['color'] = Color::getColor();
             $data['product'] = $product;
+            $data['get_sub_category'] = SubCategory::getSubCategoryId($product->category_id);
             $data['header_title'] = 'Edit product';
-            return view('admin.product.edit',$data);
-         }
-        
+            return view('admin.product.edit', $data);
+        }
+
     }
+  public function editProduct($product_id, Request $request)
+{
+    $product = Product::getProductById($product_id);
+    if (!empty($product)) {
+        $product->name = trim($request->name);
+        $product->category_id = trim($request->category_id);
+        $product->sub_category_id = trim($request->sub_category_id);
+        $product->code = trim($request->code);
+        $product->url = trim($request->url);
+        $product->price = trim($request->price);
+        $product->old_price = trim($request->old_price);
+        $product->description = trim($request->description);
+        $product->short_description = trim($request->short_description);
+        $product->status = trim($request->status);
+        $product->save();
+
+        ProductColor::DeleteRecord($product->id);
+        if (!empty($request->color_id)) {
+            foreach ($request->color_id as $color_id) {
+                $color = new ProductColor;
+                $color->color_id = $color_id;
+                $color->product_id = $product->id;
+                $color->save();
+            }
+        }
+
+        ProductSize::DeleteRecord($product->id);
+        if (!empty($request->size)) {
+            foreach ($request->size as $size) {
+                if (!empty($size['name'])) {
+                    $saveSize = new ProductSize;
+                    $saveSize->name = $size['name'];
+                    $saveSize->price = !empty($size['price']) ? $size['price'] : 0;
+                    $saveSize->product_id = $product->id;
+                    $saveSize->save();
+                }
+            }
+        }
+
+        return redirect('admin/product/list')->with('success', "Cập nhật thành công");
+    } else {
+        abort(404);
+    }
+}
+
+
 
     //
 }

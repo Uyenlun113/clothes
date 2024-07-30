@@ -21,4 +21,10 @@ class Product extends Model
     static public function checkUrl($url){
         return self::where('url', "=", $url)->count();
     }
+    public function getColor(){
+        return $this->hasMany(ProductColor::class, "product_id");
+    }
+    public function getSize(){
+        return $this->hasMany(ProductSize::class, "product_id");
+    }
 }

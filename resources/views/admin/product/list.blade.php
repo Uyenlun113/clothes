@@ -13,7 +13,6 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>Name</th>
-                            <th>URL</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -23,7 +22,6 @@
                             <tr class="align-middle">
                                 <td>{{ $value->id }}</td>
                                 <td>{{ $value->name }}</td>
-                                <td>{{ $value->url }}</td>
                                 <td>{{ $value->status == 0 ? 'Active' : 'Inactive' }}</td>
                                 <td>
                                     <a href="{{ url('admin/product/edit/' . $value->id) }}" class="btn btn-warning">Sửa</a>
