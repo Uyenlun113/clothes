@@ -9,6 +9,7 @@ use App\Models\SubCategory;
 use App\Models\Color;
 use App\Models\ProductColor;
 use App\Models\ProductSize;
+use App\Models\ProductImage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -57,6 +58,7 @@ class ProductController extends Controller
 {
     $product = Product::getProductById($product_id);
     if (!empty($product)) {
+
         $product->name = trim($request->name);
         $product->category_id = trim($request->category_id);
         $product->sub_category_id = trim($request->sub_category_id);
@@ -92,10 +94,36 @@ class ProductController extends Controller
             }
         }
 
+         if(!empty($request->file('image'))){
+            foreach($request->file('image') as $value){
+                if($value->isValid()){
+                        $ext = $value->getClientOriginalExtension();
+                        $randomStr = $product->id . Str::random(20);
+                        $filename = strtolower($randomStr) . '.' . $ext;
+                        $value->move('upload/product/', $filename);
+
+                        $imageupload = new ProductImage;
+                        $imageupload->name_image = $filename;
+                        $imageupload->image_extension = $ext;
+                        $imageupload->product_id = $product->id;
+                        $imageupload->save();
+                }
+            }
+        }
+
         return redirect('admin/product/list')->with('success', "Cập nhật thành công");
     } else {
         abort(404);
     }
+}
+public function imageDelete($id){
+        $image = ProductImage::getImageId($id);
+        if(!empty($image->getLogo())){
+            unlink('upload/product/' . $image->name_image);
+        }
+        $image->delete();
+        return redirect()->back()->with('success',"Xóa ảnh thành công");
+    
 }
 
 

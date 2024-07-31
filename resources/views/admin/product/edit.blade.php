@@ -7,7 +7,7 @@
                 <div class="card-header bg-primary text-white">
                     <h5 class="card-title mb-0 fw-bold">Sửa sản phẩm</h5>
                 </div>
-                <form action="" method="POST" id="productForm">
+                <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="row">
@@ -126,6 +126,27 @@
                     </table>
                 </div>
             </div>
+
+            <hr>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <label for="" class="form-label fw-bold">Image <span class="text-danger">*</span></label>
+                    <input type="file" name="image[]" class="form-control" multiple accept="image/*">
+                </div>
+            </div>
+            @if (!empty($product->getImage) && $product->getImage->count() > 0)
+                <div class="row">
+                    @foreach ($product->getImage as $image)
+                        @if (!empty($image->getLogo()))
+                            <div class="col-md-2">
+                                <img src="{{ $image->getLogo() }}" alt="Product Image" width="100%" height="200px">
+                                <a href="{{ url('admin/product/image_delete/' . $image->id) }}" style="margin-top: 10px"
+                                    class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            @endif
 
             <hr>
 
