@@ -19,4 +19,21 @@ class Categories extends Model
     static public function getCatgoryById($id){
         return Categories::find($id);
     }
+    static public function getCatgoryByUrl($urlCategory){
+        return self::where('urlCategory','=',$urlCategory)
+        ->where('categories.is_delete','=',0)
+        ->where('categories.status','=',0)
+        ->first();
+    }
+    static public function getListMenu(){
+        return Categories::select('categories.*')
+            ->where('status', 0)
+            ->where('is_delete', 0)
+            ->get();
+    }
+    public function getSubCategory(){
+        return $this->hasMany(SubCategory::class, "category_id")
+        ->where('subcategories.status','=',0)
+        ->where('subcategories.is_delete','=',0);
+    }
 }

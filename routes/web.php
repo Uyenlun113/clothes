@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController as ProductHome;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,8 +71,9 @@ Route::group(['middleware' => 'admin'], function () {
      Route::get('admin/product/image_delete/{id}', [ProductController::class, 'imageDelete']);
 });
 
+Route::get('/', [HomeController::class, 'home']);
+Route::get('{category?}/{subcategory?}', [ProductHome::class, 'getCategorySub']);
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });

@@ -20,6 +20,12 @@ class SubCategory extends Model
     static public function getSubCatgoryById($id){
         return self::find($id);
     }
+    static public function getCatgoryByUrl($url){
+        return self::where('url','=',$url)
+        ->where('subcategories.is_delete','=',0)
+        ->where('subcategories.status','=',0)
+        ->first();
+    }
     static public function getSubCategoryId($category_id){
         return self::select('subcategories.*')
             ->where('status', 0)
