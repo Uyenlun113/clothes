@@ -54,49 +54,50 @@ class ProductController extends Controller
         }
 
     }
-  public function editProduct($product_id, Request $request)
-{
-    $product = Product::getProductById($product_id);
-    if (!empty($product)) {
+    public function editProduct($product_id, Request $request)
+    {
+        $product = Product::getProductById($product_id);
+       
+        if (!empty($product)) {
+            $product->name = trim($request->name);
+            $newUrl = trim(Str::slug($product->name, "-"));
+            $product->category_id = trim($request->category_id);
+            $product->sub_category_id = trim($request->sub_category_id);
+            $product->code = trim($request->code);
+            $product->url = trim($request->url);
+            $product->price = trim($request->price);
+            $product->old_price = trim($request->old_price);
+            $product->description = trim($request->description);
+            $product->short_description = trim($request->short_description);
+            $product->status = trim($request->status);
+            $product->save();
 
-        $product->name = trim($request->name);
-        $product->category_id = trim($request->category_id);
-        $product->sub_category_id = trim($request->sub_category_id);
-        $product->code = trim($request->code);
-        $product->url = trim($request->url);
-        $product->price = trim($request->price);
-        $product->old_price = trim($request->old_price);
-        $product->description = trim($request->description);
-        $product->short_description = trim($request->short_description);
-        $product->status = trim($request->status);
-        $product->save();
-
-        ProductColor::DeleteRecord($product->id);
-        if (!empty($request->color_id)) {
-            foreach ($request->color_id as $color_id) {
-                $color = new ProductColor;
-                $color->color_id = $color_id;
-                $color->product_id = $product->id;
-                $color->save();
-            }
-        }
-
-        ProductSize::DeleteRecord($product->id);
-        if (!empty($request->size)) {
-            foreach ($request->size as $size) {
-                if (!empty($size['name'])) {
-                    $saveSize = new ProductSize;
-                    $saveSize->name = $size['name'];
-                    $saveSize->price = !empty($size['price']) ? $size['price'] : 0;
-                    $saveSize->product_id = $product->id;
-                    $saveSize->save();
+            ProductColor::DeleteRecord($product->id);
+            if (!empty($request->color_id)) {
+                foreach ($request->color_id as $color_id) {
+                    $color = new ProductColor;
+                    $color->color_id = $color_id;
+                    $color->product_id = $product->id;
+                    $color->save();
                 }
             }
-        }
 
-         if(!empty($request->file('image'))){
-            foreach($request->file('image') as $value){
-                if($value->isValid()){
+            ProductSize::DeleteRecord($product->id);
+            if (!empty($request->size)) {
+                foreach ($request->size as $size) {
+                    if (!empty($size['name'])) {
+                        $saveSize = new ProductSize;
+                        $saveSize->name = $size['name'];
+                        $saveSize->price = !empty($size['price']) ? $size['price'] : 0;
+                        $saveSize->product_id = $product->id;
+                        $saveSize->save();
+                    }
+                }
+            }
+
+            if (!empty($request->file('image'))) {
+                foreach ($request->file('image') as $value) {
+                    if ($value->isValid()) {
                         $ext = $value->getClientOriginalExtension();
                         $randomStr = $product->id . Str::random(20);
                         $filename = strtolower($randomStr) . '.' . $ext;
@@ -107,24 +108,25 @@ class ProductController extends Controller
                         $imageupload->image_extension = $ext;
                         $imageupload->product_id = $product->id;
                         $imageupload->save();
+                    }
                 }
             }
-        }
 
-        return redirect('admin/product/list')->with('success', "Cập nhật thành công");
-    } else {
-        abort(404);
+            return redirect('admin/product/list')->with('success', "Cập nhật thành công");
+        } else {
+            abort(404);
+        }
     }
-}
-public function imageDelete($id){
+    public function imageDelete($id)
+    {
         $image = ProductImage::getImageId($id);
-        if(!empty($image->getLogo())){
+        if (!empty($image->getLogo())) {
             unlink('upload/product/' . $image->name_image);
         }
         $image->delete();
-        return redirect()->back()->with('success',"Xóa ảnh thành công");
-    
-}
+        return redirect()->back()->with('success', "Xóa ảnh thành công");
+
+    }
 
 
 

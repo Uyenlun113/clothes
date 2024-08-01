@@ -38,9 +38,6 @@
                     <div class="col-lg-9">
                         <div class="toolbox">
                             <div class="toolbox-left">
-                                <div class="toolbox-info">
-                                    Showing <span>9 of 56</span> Products
-                                </div><!-- End .toolbox-info -->
                             </div><!-- End .toolbox-left -->
 
                             <div class="toolbox-right">
@@ -68,6 +65,10 @@
                     <aside class="col-lg-3 order-lg-first">
                         <form action="" id="FilterForm" method="POST">
                             {{ csrf_field() }}
+                            <input type="hidden" name="old_sub_category_id"
+                                value="{{ !empty($getSubCategory) ? $getSubCategory->id : '' }}">
+                            <input type="hidden" name="old_category_id"
+                                value="{{ !empty($getCategory) ? $getCategory->id : '' }}">
                             <input type="hidden" name="sub_category_id" id="get_sub_category_id">
                             <input type="hidden" name="color_id" id="get_color_id">
                         </form>
@@ -200,9 +201,13 @@
             FilterForm();
 
         });
+        var xhr;
 
         function FilterForm() {
-            $.ajax({
+            if (xhr && xhr.readyState != 4) {
+                xhr.abort();
+            }
+            xhr = $.ajax({
                 type: "POST",
                 url: "{{ url('get_product_ajax') }}",
                 data: $('#FilterForm').serialize(),

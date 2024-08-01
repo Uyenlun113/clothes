@@ -19,9 +19,9 @@ class Product extends Model
         return self::select('products.*')
             ->where('is_delete', '=', 0)
             ->orderBy('id', 'desc')
-            ->paginate(20);
+            ->paginate(9);
     }
-
+// lấy danh sách sản phẩm theo catagory ,  Sub_category
     static public function getProduct($category_id = '', $subcategory_id = '')
     {
         $query = Product::select(
@@ -41,14 +41,23 @@ class Product extends Model
         if (!empty($subcategory_id)) {
             $query->where('products.sub_category_id', $subcategory_id);
         }
-        if(!empty(request()->get('sub_category_id'))){
+        if (!empty(request()->get('sub_category_id'))) {
             $sub_category_id = rtrim(request()->get('sub_category_id'), ',');
             $sub_category_id_array = explode(",", $sub_category_id);
             $query->whereIn('products.sub_category_id', $sub_category_id_array);
 
+        } else {
+            if (!empty(request()->get('old_category_id'))) {
+                $query->where('products.category_id', request()->get('old_category_id'));
+            }
+
+            if (!empty($old_sub_category_id)) {
+                $query->where('products.sub_category_id',  request()->get('old_sub_category_id'));
+            }
+
         }
-         if(!empty(request()->get('color_id'))){
-             $color_id = rtrim(request()->get('color_id'), ',');
+        if (!empty(request()->get('color_id'))) {
+            $color_id = rtrim(request()->get('color_id'), ',');
             $color_id_array = explode(",", $color_id);
             $query->join('product_color', 'product_color.product_id', '=', 'products.id');
             $query->whereIn('product_color.color_id', $color_id_array);
@@ -63,13 +72,19 @@ class Product extends Model
         return $query->paginate(9);
     }
     public function getImageSingle()
-{
-    return $this->hasMany(ProductImage::class, 'product_id')->first();
-}
-
+    {
+        return $this->hasMany(ProductImage::class, 'product_id')->first();
+    }
+    static public function getSingleSlug($url){
+         return self::where('url', $url)
+         ->where('products.is_delete', 0)
+            ->where('products.status', 0)
+            ->first();
+    }
+    //check url
     static public function checkUrl($url)
     {
-        return self::where('url', "=", $url)->count();
+       return self::where('url', $url)->first();
     }
     public function getColor()
     {

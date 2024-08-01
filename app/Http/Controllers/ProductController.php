@@ -12,11 +12,19 @@ class ProductController extends Controller
 {
     public function getCategorySub($urlCategory, $url = '')
     {
+       
+        $getProductSingle = Product::getSingleSlug($urlCategory);
         $getCategory = Categories::getCatgoryByUrl($urlCategory);
         $getSubCategory = SubCategory::getCatgoryByUrl($url);
         $data['getColor'] = Color::getColor();
 
-        if (!empty($getCategory) && !empty($getSubCategory)) {
+        if(!empty( $getProductSingle)){
+            $data['getProductDetail'] = Product::getSingleSlug($urlCategory);
+            return view('product.detail', $data);
+
+        }
+
+        else if (!empty($getCategory) && !empty($getSubCategory)) {
 
             $data['getCategory'] = $getCategory;
             $data['getSubCategory'] = $getSubCategory;
