@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Product extends Model
 {
@@ -40,9 +41,23 @@ class Product extends Model
         if (!empty($subcategory_id)) {
             $query->where('products.sub_category_id', $subcategory_id);
         }
+        if(!empty(request()->get('sub_category_id'))){
+            $sub_category_id = rtrim(request()->get('sub_category_id'), ',');
+            $sub_category_id_array = explode(",", $sub_category_id);
+            $query->whereIn('products.sub_category_id', $sub_category_id_array);
+
+        }
+         if(!empty(request()->get('color_id'))){
+             $color_id = rtrim(request()->get('color_id'), ',');
+            $color_id_array = explode(",", $color_id);
+            $query->join('product_color', 'product_color.product_id', '=', 'products.id');
+            $query->whereIn('product_color.color_id', $color_id_array);
+
+        }
 
         $query->where('products.is_delete', 0)
             ->where('products.status', 0)
+            ->groupBy('products.id')
             ->orderBy('products.id', 'desc');
 
         return $query->paginate(9);

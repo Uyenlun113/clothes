@@ -72,6 +72,7 @@ Route::group(['middleware' => 'admin'], function () {
 });
 
 Route::get('/', [HomeController::class, 'home']);
+Route::post('get_product_ajax', [ProductHome::class, 'getProductAjax']);
 Route::get('{category?}/{subcategory?}', [ProductHome::class, 'getCategorySub']);
 
 // Route::get('/', function () {
