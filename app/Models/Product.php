@@ -63,6 +63,9 @@ class Product extends Model
             $query->whereIn('product_color.color_id', $color_id_array);
 
         }
+        if(!empty(request()->get('q'))){
+             $query->where('products.name','like','%'.request()->get('q').'%');
+        }
 
         $query->where('products.is_delete', 0)
             ->where('products.status', 0)
@@ -70,6 +73,28 @@ class Product extends Model
             ->orderBy('products.id', 'desc');
 
         return $query->paginate(9);
+    }
+    static public function getRelatedProduct($product_id,$sub_category_id){
+        $query = Product::select(
+            'products.*',
+            'categories.name as category_name',
+            'categories.urlCategory as category_url',
+            'subcategories.name as sub_name',
+            'subcategories.url as sub_url'
+        )
+        ->join('categories', 'categories.id', '=', 'products.category_id')
+        ->join('subcategories', 'subcategories.id', '=', 'products.sub_category_id');
+
+        $query->where('products.is_delete', 0)
+            ->where('products.status', 0)
+            ->where('products.id', '!=',$product_id)
+            ->where('products.sub_category_id', '=',$sub_category_id)
+            ->groupBy('products.id')
+            ->orderBy('products.id', 'desc')
+            ->limit(10);
+
+        return $query->get();
+
     }
     public function getImageSingle()
     {

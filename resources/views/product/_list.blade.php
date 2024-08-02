@@ -4,7 +4,6 @@
                @foreach ($getProduct as $value)
                    @php
                        $getProductImage = $value->getImageSingle($value->id);
-
                    @endphp
                    <div class="col-6 col-md-4 col-lg-4">
                        <div class="product product-7 text-center">

@@ -12,8 +12,10 @@
             <div class="container">
                 @if (!empty($getSubCategory))
                     <h1 class="page-title">{{ $getSubCategory->name }}</h1>
-                @else
+                @elseif(!empty($getCategory))
                     <h1 class="page-title">{{ $getCategory->name }}</h1>
+                @else
+                    <h1 class="page-title">Kết quả tìm kiếm :{{ Request::get('q') }}</h1>
                 @endif
             </div><!-- End .container -->
         </div><!-- End .page-header -->
@@ -25,7 +27,7 @@
                     @if (!empty($getSubCategory))
                         <li class="breadcrumb-item " aria-current="page">{{ $getCategory->name }}</li>
                         <li class="breadcrumb-item active" aria-current="page">{{ $getSubCategory->name }}</li>
-                    @else
+                    @elseif(!empty($getCategory))
                         <li class="breadcrumb-item active" aria-current="page">{{ $getCategory->name }}</li>
                     @endif
                 </ol>
@@ -65,6 +67,8 @@
                     <aside class="col-lg-3 order-lg-first">
                         <form action="" id="FilterForm" method="POST">
                             {{ csrf_field() }}
+                            <input type="hidden" name="old_sub_category_id"
+                                value="{{ !empty(Request::get('q')) ? Request::get('q') : '' }}">
                             <input type="hidden" name="old_sub_category_id"
                                 value="{{ !empty($getSubCategory) ? $getSubCategory->id : '' }}">
                             <input type="hidden" name="old_category_id"
@@ -117,21 +121,22 @@
                                         Colour
                                     </a>
                                 </h3><!-- End .widget-title -->
+                                @if (!empty($getColor))
+                                    <div class="collapse show" id="widget-3">
+                                        <div class="widget-body">
+                                            <div class="filter-colors">
+                                                @foreach ($getColor as $color)
+                                                    <a href="javascript:;" id="{{ $color->id }}" class="ChangeColor"
+                                                        data-val="0" style="background: {{ $color->code }};">
+                                                        <span class="sr-only">{{ $color->name }}</span>
+                                                    </a>
+                                                @endforeach
+                                            </div>
 
-                                <div class="collapse show" id="widget-3">
-                                    <div class="widget-body">
-                                        <div class="filter-colors">
-                                            @foreach ($getColor as $color)
-                                                <a href="javascript:;" id="{{ $color->id }}" class="ChangeColor"
-                                                    data-val="0" style="background: {{ $color->code }};">
-                                                    <span class="sr-only">{{ $color->name }}</span>
-                                                </a>
-                                            @endforeach
-                                        </div>
 
-
-                                    </div><!-- End .widget-body -->
-                                </div><!-- End .collapse -->
+                                        </div><!-- End .widget-body -->
+                                    </div><!-- End .collapse -->
+                                @endif
                             </div><!-- End .widget -->
 
 

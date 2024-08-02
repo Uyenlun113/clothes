@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as ProductHome;
+use App\Http\Controllers\PaymentController;
+use Faker\Provider\ar_EG\Payment;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,6 +74,9 @@ Route::group(['middleware' => 'admin'], function () {
 });
 
 Route::get('/', [HomeController::class, 'home']);
+Route::get('cart', [PaymentController::class, 'cart']);
+Route::post('product/add-to-cart', [PaymentController::class, 'addToCart']);
+Route::get('search', [ProductHome::class, 'getProductSeach']);
 Route::post('get_product_ajax', [ProductHome::class, 'getProductAjax']);
 Route::get('{category?}/{subcategory?}', [ProductHome::class, 'getCategorySub']);
 

@@ -10,22 +10,27 @@ use App\Models\Color;
 
 class ProductController extends Controller
 {
+    public function getProductSeach(Request $request){
+        $data['meta_title'] = 'Search';
+        $data['keyword'] = '';
+        $data['getProduct'] = Product::getProduct();
+         
+          $data['getColor'] = Color::getColor();
+        return view('product.list', $data);
+        
+    }
     public function getCategorySub($urlCategory, $url = '')
     {
-       
         $getProductSingle = Product::getSingleSlug($urlCategory);
         $getCategory = Categories::getCatgoryByUrl($urlCategory);
         $getSubCategory = SubCategory::getCatgoryByUrl($url);
         $data['getColor'] = Color::getColor();
-
         if(!empty( $getProductSingle)){
-            $data['getProductDetail'] = Product::getSingleSlug($urlCategory);
+            $data['getProductDetail'] = $getProductSingle;
+            $data['getRelatedProduct'] = Product::getRelatedProduct($getProductSingle->id,$getProductSingle->sub_category_id);
             return view('product.detail', $data);
-
         }
-
         else if (!empty($getCategory) && !empty($getSubCategory)) {
-
             $data['getCategory'] = $getCategory;
             $data['getSubCategory'] = $getSubCategory;
             $data['getSubFilter'] = SubCategory::getSubCategoryId($getCategory->id);
@@ -35,14 +40,12 @@ class ProductController extends Controller
             // dd($data['getSubFilter']);
             $data['getCategory'] = $getCategory;
             $data['getProduct'] = Product::getProduct($getCategory->id);
-
             if ($data['getProduct']->isEmpty()) {
                 return redirect()->route('home')->with('error', 'Không tìm thấy sản phẩm.');
             }
         } else {
             abort(404);
         }
-
         return view('product.list', $data);
     }
     public function getProductAjax(Request $request)
