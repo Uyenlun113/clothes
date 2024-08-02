@@ -11,10 +11,14 @@
                                     <span>(3)</span></a></li>
                             <li><a href="about.html">About Us</a></li>
                             <li><a href="contact.html">Contact Us</a></li>
-                            <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a>
-                            </li>
-                        </ul>
+                            @if (!empty(Auth::check()))
+                                <li><a href="{{ url('admin/logout') }}"><i class="icon-user"></i>Logout</a>
+                                @else
+                                <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a>
+                            @endif
                     </li>
+                </ul>
+                </li>
                 </ul>
             </div>
         </div>
@@ -81,7 +85,7 @@
                     <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false" data-display="static">
                         <i class="icon-shopping-cart"></i>
-                        <span class="cart-count">2</span>
+
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
@@ -106,8 +110,8 @@
                                             <img src="{{ $getProductImage->getLogo() }}" alt="product">
                                         </a>
                                     </figure>
-                                    <a href="#" class="btn-remove" title="Remove Product"><i
-                                            class="icon-close"></i></a>
+                                    <a href="{{ url('cart/delete/' . $cart->id) }}" class="btn-remove"
+                                        title="Remove Product"><i class="icon-close"></i></a>
                                 </div>
                             @endforeach
                         </div>
@@ -116,8 +120,8 @@
                             <span class="cart-total-price">{{ number_format(Cart::getSubTotal()) }} đ</span>
                         </div>
                         <div class="dropdown-cart-action">
-                            <a href="cart.html" class="btn btn-primary">View Cart</a>
-                            <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i
+                            <a href="{{ url('cart') }}" class="btn btn-primary">Chi tiết </a>
+                            <a href="{{ url('checkout') }}" class="btn btn-outline-primary-2"><span>Thanh toán</span><i
                                     class="icon-long-arrow-right"></i></a>
                         </div>
                     </div>

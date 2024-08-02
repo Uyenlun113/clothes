@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as ProductHome;
 use App\Http\Controllers\PaymentController;
@@ -64,6 +65,14 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/color/edit/{id}', [ColorController::class, 'editColor']);
     Route::get('admin/color/delete/{id}', [ColorController::class, 'deleteColor']);
 
+    //Discount_code
+    Route::get('admin/discount/list', [DiscountCodeController::class, 'listDiscount']);
+    Route::get('admin/discount/add', [DiscountCodeController::class, 'add']);
+    Route::post('admin/discount/add', [DiscountCodeController::class, 'addDiscount']);
+    Route::get('admin/discount/edit/{id}', [DiscountCodeController::class, 'edit']);
+    Route::post('admin/discount/edit/{id}', [DiscountCodeController::class, 'editDiscount']);
+    Route::get('admin/discount/delete/{id}', [DiscountCodeController::class, 'deleteDiscount']);
+
     //product
     Route::get('admin/product/list', [ProductController::class, 'listProduct']);
     Route::get('admin/product/add', [ProductController::class, 'add']);
@@ -74,7 +83,18 @@ Route::group(['middleware' => 'admin'], function () {
 });
 
 Route::get('/', [HomeController::class, 'home']);
+Route::post('auth_register', [AuthController::class, 'authRegister']);
+Route::post('auth_login', [AuthController::class, 'auth_admin']);
+Route::get('forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('forgot-password', [AuthController::class, 'authForgotPassword']);
+
+
 Route::get('cart', [PaymentController::class, 'cart']);
+Route::post('update_cart', [PaymentController::class, 'cartUpdate']);
+Route::get('cart/delete/{id}', [PaymentController::class, 'cartDelete']);
+Route::get('checkout', [PaymentController::class, 'checkout']);
+Route::post('checkout/apply_discount_code', [PaymentController::class, 'apply_discount_code']);
+
 Route::post('product/add-to-cart', [PaymentController::class, 'addToCart']);
 Route::get('search', [ProductHome::class, 'getProductSeach']);
 Route::post('get_product_ajax', [ProductHome::class, 'getProductAjax']);

@@ -46,73 +46,67 @@
                             <ul class="nav nav-pills nav-fill" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin"
-                                        role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                                        role="tab" aria-controls="signin" aria-selected="true">Đăng nhập</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="register-tab" data-toggle="tab" href="#register"
-                                        role="tab" aria-controls="register" aria-selected="false">Register</a>
+                                        role="tab" aria-controls="register" aria-selected="false">Đăng ký</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="tab-content-5">
                                 <div class="tab-pane fade show active" id="signin" role="tabpanel"
                                     aria-labelledby="signin-tab">
-                                    <form action="#">
+                                    <form action="" id="SubmitFormLogin" method="POST">
+                                        {{ csrf_field() }}
                                         <div class="form-group">
-                                            <label for="singin-email">Username or email address *</label>
-                                            <input type="text" class="form-control" id="singin-email"
-                                                name="singin-email" required>
+                                            <label for="singin-email">Email *</label>
+                                            <input type="text" class="form-control" id="singin-email" name="email"
+                                                required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
                                             <label for="singin-password">Password *</label>
                                             <input type="password" class="form-control" id="singin-password"
-                                                name="singin-password" required>
+                                                name="password" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-footer">
                                             <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>LOG IN</span>
+                                                <span>Đăng nhập</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </button>
-
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="signin-remember">
-                                                <label class="custom-control-label" for="signin-remember">Remember
-                                                    Me</label>
-                                            </div><!-- End .custom-checkbox -->
-
-                                            <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                            <a href="{{ url('forgot-password') }}" class="forgot-link">Forgot Your
+                                                Password?</a>
                                         </div><!-- End .form-footer -->
                                     </form>
                                 </div><!-- .End .tab-pane -->
                                 <div class="tab-pane fade" id="register" role="tabpanel"
                                     aria-labelledby="register-tab">
-                                    <form action="#">
+                                    <form action="" id="SubmitFormRegister" method="POST">
+                                        {{ csrf_field() }}
                                         <div class="form-group">
-                                            <label for="register-email">Your email address *</label>
-                                            <input type="email" class="form-control" id="register-email"
-                                                name="register-email" required>
+                                            <label for="register-name">Name *</label>
+                                            <input type="text" class="form-control" name="name" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
+                                            <label for="register-email">Email *</label>
+                                            <input type="email" class="form-control" id="email" name="email"
+                                                required>
+                                        </div><!-- End .form-group -->
+                                        <div class="form-group">
                                             <label for="register-password">Password *</label>
-                                            <input type="password" class="form-control" id="register-password"
-                                                name="register-password" required>
+                                            <input type="password" class="form-control" id="password"
+                                                name="password" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-footer">
                                             <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>SIGN UP</span>
+                                                <span>Đăng kí</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </button>
 
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="register-policy" required>
-                                                <label class="custom-control-label" for="register-policy">I agree to
-                                                    the <a href="#">privacy policy</a> *</label>
-                                            </div><!-- End .custom-checkbox -->
+
                                         </div><!-- End .form-footer -->
                                     </form>
 
@@ -136,6 +130,50 @@
     <!-- Main JS File -->
     <script src="{{ url('assets/js/main.js') }}"></script>
     @yield('script')
+    <script>
+        $('body').on('submit', '#SubmitFormLogin', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "{{ url('auth_login') }}",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(data) {
+                    alert(data.message);
+                    if (data.status == true) {
+                        location.reload();
+
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // console.error('Error fetching subcategories:', error);
+                }
+            });
+
+        })
+
+
+        $('body').on('submit', '#SubmitFormRegister', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "{{ url('auth_register') }}",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(data) {
+                    alert(data.message);
+                    if (data.status == true) {
+                        location.reload();
+
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // console.error('Error fetching subcategories:', error);
+                }
+            });
+
+        })
+    </script>
 </body>
 
 </html>
