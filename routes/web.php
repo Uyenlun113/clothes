@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as ProductHome;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Admin\OrderController;
 use Faker\Provider\ar_EG\Payment;
 
 /*
@@ -80,6 +81,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/product/edit/{id}', [ProductController::class, 'edit']);
     Route::post('admin/product/edit/{id}', [ProductController::class, 'editProduct']);
      Route::get('admin/product/image_delete/{id}', [ProductController::class, 'imageDelete']);
+
+     //Order
+      Route::get('admin/order', [ProductController::class, 'list']);
 });
 
 Route::get('/', [HomeController::class, 'home']);

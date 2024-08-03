@@ -490,9 +490,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `is
 (1, 'admin', 'admin@gmail.com', '2024-07-11 09:30:09', '$2y$10$PfoKBTRK9TMJZP7NtgEnduSTw.wvrfw9oXttfudyscHHXcGmTr5Yy', 1, 0, 0, '0T9rh9EU2SoXRTGEox7JFluORIVlEPJMkKoP74vhXIjC9KNJD9rgdb7jgq7O', '2024-07-13 09:30:09', '2024-08-02 02:39:19'),
 (9, 'uyen ne', 'uyen@gmail.com', '2024-07-11 08:29:59', '$2y$10$ILNs.GUCuQCE5vKdiI5FM.3gbfY2XE531yC.tot4sqi5xsdg8gsiW', 0, 0, 0, NULL, '2024-07-17 01:29:12', '2024-07-17 01:29:12'),
 (18, 'phạm thị uyên', 'thiuyen1132004@gmail.com', NULL, '$2y$10$4WKukn25ejcZO/rLwutIReGcy2BP5p6iEpT0EajYovaDNvWwuAXku', 0, 0, 0, 'VSuy2ilr65zr5E9gXlLtyFlunuabIw', '2024-07-17 03:04:04', '2024-08-02 02:47:39'),
-(27, 'name', 'admin123@gmail.com', NULL, '$2y$10$JU9B/yXQ7ut9gq/BZ9lneumYRVPKN0CyXKFyTXMI0.J9/ZKLpKoPG', 0, 0, 0, NULL, '2024-08-02 00:30:00', '2024-08-02 00:30:00'),
-(28, 'tuan', 'uyenlun@gmail.com', NULL, '$2y$10$RCE10WzoyWNhCUyDSOP9WexPGeZaa0uKEwSX/BVwyX.7Sc4SdlnZO', 0, 0, 0, NULL, '2024-08-02 00:54:22', '2024-08-02 00:54:22'),
-(29, 'uyenlun', 'tuanxu@gmail.com', NULL, '$2y$10$eODDsIEMOvQqiCOBoZaqzu3vbDqQX.1ul2vD7XW6MxHZfpjSLn8MS', 0, 0, 0, NULL, '2024-08-02 22:17:53', '2024-08-02 22:17:53');
+(27, 'name', 'admin123@gmail.com', NULL, '$2y$10$JU9B/yXQ7ut9gq/BZ9lneumYRVPKN0CyXKFyTXMI0.J9/ZKLpKoPG', 0, 0, 0, NULL, '2024-08-02 00:30:00', '2024-08-02 00:30:00');
 
 --
 -- Chỉ mục cho các bảng đã đổ

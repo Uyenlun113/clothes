@@ -239,6 +239,14 @@
                             </a> </li>
                     </ul>
                 </li>
+                <li class="nav-item"> <a href="{{ url('admin/order') }}" class="nav-link"> <i
+                            class="nav-icon bi bi-speedometer"></i>
+                        <p>
+                            Đơn hàng
+                        </p>
+                    </a>
+                </li>
+
                 <li class="nav-item menu-open"> <a href="{{ url('admin/logout') }}" class="nav-link active"> <i
                             class="nav-icon bi bi-box-arrow-right"></i>
                         <p>

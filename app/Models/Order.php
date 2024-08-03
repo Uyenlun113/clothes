@@ -12,5 +12,10 @@ class Order extends Model
     static function getSingle($id){
         return self::find($id);
     }
+    static public function getListOrder(){
+        return Order::select('orders.*')
+            ->orderBy('id', 'desc')
+            ->paginate(30);
+    }
     
 }
