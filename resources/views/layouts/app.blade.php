@@ -118,6 +118,19 @@
             </div><!-- End .modal-content -->
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->
+    @if (session('success'))
+        <script>
+            // Hiển thị thông báo alert với thông báo thành công
+            alert('{{ session('success') }}');
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            // Hiển thị thông báo alert với thông báo lỗi
+            alert('{{ session('error') }}');
+        </script>
+    @endif
 
     <!-- Plugins JS File -->
     <script src="{{ url('assets/js/jquery.min.js') }}"></script>

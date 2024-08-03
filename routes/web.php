@@ -86,7 +86,7 @@ Route::get('/', [HomeController::class, 'home']);
 Route::post('auth_register', [AuthController::class, 'authRegister']);
 Route::post('auth_login', [AuthController::class, 'auth_admin']);
 Route::get('forgot-password', [AuthController::class, 'forgotPassword']);
-Route::post('forgot-password', [AuthController::class, 'authForgotPassword']);
+
 
 
 Route::get('cart', [PaymentController::class, 'cart']);
@@ -94,7 +94,9 @@ Route::post('update_cart', [PaymentController::class, 'cartUpdate']);
 Route::get('cart/delete/{id}', [PaymentController::class, 'cartDelete']);
 Route::get('checkout', [PaymentController::class, 'checkout']);
 Route::post('checkout/apply_discount_code', [PaymentController::class, 'apply_discount_code']);
-
+Route::post('checkout/place_order', [PaymentController::class, 'checkout_place_order']);
+Route::get('checkout/payment', [PaymentController::class, 'checkout_payment']);
+Route::get('paypal/success-payment', [PaymentController::class, 'paypal_success_payment']);
 Route::post('product/add-to-cart', [PaymentController::class, 'addToCart']);
 Route::get('search', [ProductHome::class, 'getProductSeach']);
 Route::post('get_product_ajax', [ProductHome::class, 'getProductAjax']);

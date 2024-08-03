@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash; // Import the Hash facade
 use Illuminate\Support\Facades\Mail; // Import the Mail facade
 use Illuminate\Support\Str;
 use App\Models\User;
-use App\Mail\ForgotPasswordMail;
+// use App\Mail\ForgotPasswordMail;
 
 class AuthController extends Controller
 {
@@ -87,18 +87,6 @@ class AuthController extends Controller
     public function forgotPassword(Request $request){
         return view('auth.forgot');
     }
-//    public function authForgotPassword(Request $request)
-// {
-//     $user = User::where('email', $request->email)->first();
-    
-//     if ($user) {
-//         $user->remember_token = Str::random(30);
-//         $user->save();
-//         Mail::to($user->email)->send(new ForgotPasswordMail($user));
-//         return redirect()->back()->with('success', "thanh cong");
-//     } else {
-//         return redirect()->back()->with('error', "Email không tồn tại");
-//     }
-// }
+
 
 }
