@@ -17,5 +17,8 @@ class Order extends Model
             ->orderBy('id', 'desc')
             ->paginate(30);
     }
+    public function getItem(){
+        return $this->hasMany(Orderitem::class, 'order_id');
+    }
     
 }

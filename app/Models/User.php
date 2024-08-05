@@ -59,4 +59,12 @@ class User extends Authenticatable
             ->where('email','=',$email)
             ->first();
     }
+    static public function getListCustomer()
+    {
+        return User::select('users.*')
+            ->where('is_admin', 0)
+            ->where('is_delete', 0)
+            ->orderBy('id', 'desc')
+            ->get();
+    }
 }

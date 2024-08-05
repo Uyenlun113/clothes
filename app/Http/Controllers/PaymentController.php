@@ -125,7 +125,6 @@ class PaymentController extends Controller
         $order = new Order;
         $order->first_name = trim($request->first_name);
         $order->user_id = Auth::id();
-        // Lấy user_id của người dùng đang đăng nhập
         $order->last_name = trim($request->last_name);
         $order->address_one = trim($request->address_one);
         $order->address_two = trim($request->address_two);

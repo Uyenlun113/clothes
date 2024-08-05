@@ -63,4 +63,15 @@ class UsersController extends Controller
         $user->save();
         return redirect()->back()->with('success', "Xóa thành công");
     }
+    public function listCustomer(){
+        $data['listCustomer'] = User::getListCustomer();
+        $data['header_title'] = "Customers";
+        return view('admin.customer.list', $data);
+    }
+    public function deleteCustomer($id){
+        $user = User::getUserById($id);
+        $user->is_delete = 1;
+        $user->save();
+        return redirect()->back()->with('success', "Xóa thành công");
+    }
 }

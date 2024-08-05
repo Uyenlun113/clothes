@@ -37,6 +37,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/user/edit/{id}', [UsersController::class, 'edit']);
     Route::post('admin/user/edit/{id}', [UsersController::class, 'editUser']);
     Route::get('admin/user/delete/{id}', [UsersController::class, 'deleteUser']);
+    Route::get('admin/customer/list', [UsersController::class, 'listCustomer']);
+    Route::get('admin/customer/delete/{id}', [UsersController::class, 'deleteCustomer']);
 
     //Category
     Route::get('admin/category/list', [CategoryController::class, 'listCategory']);
@@ -83,7 +85,11 @@ Route::group(['middleware' => 'admin'], function () {
      Route::get('admin/product/image_delete/{id}', [ProductController::class, 'imageDelete']);
 
      //Order
-      Route::get('admin/order', [ProductController::class, 'list']);
+      Route::get('admin/order', [OrderController::class, 'list']);
+      Route::get('admin/order/detail/{id}', [OrderController::class, 'detailOrder']);
+      Route::get('admin/order_status', [OrderController::class, 'orderStatus']);
+      
+      
 });
 
 Route::get('/', [HomeController::class, 'home']);
