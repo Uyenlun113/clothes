@@ -67,4 +67,10 @@ class User extends Authenticatable
             ->orderBy('id', 'desc')
             ->get();
     }
+    static public function getTotalCustomer(){
+        return User::select('id')
+            ->where('is_admin', 0)
+            ->where('is_delete', 0)
+            ->count();
+    }
 }

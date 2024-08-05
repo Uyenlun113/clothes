@@ -12,7 +12,8 @@
                             <li><a href="about.html">About Us</a></li>
                             <li><a href="contact.html">Contact Us</a></li>
                             @if (!empty(Auth::check()))
-                                <li><a href="{{ url('admin/logout') }}"><i class="icon-user"></i>Logout</a>
+                                <li><a href="{{ url('user/dashboard') }}"><i
+                                            class="icon-user"></i>{{ Auth::user()->name }}</a>
                                 @else
                                 <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a>
                             @endif
