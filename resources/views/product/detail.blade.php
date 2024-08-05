@@ -99,7 +99,6 @@
                                             </select>
                                         </div><!-- End .select-custom -->
 
-
                                     </div><!-- End .details-filter-row -->
 
                                     <div class="details-filter-row details-row-size">

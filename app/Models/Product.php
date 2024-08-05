@@ -21,6 +21,14 @@ class Product extends Model
             ->orderBy('id', 'desc')
             ->paginate(9);
     }
+    static public function getProductHome()
+    {
+        return self::select('products.*')
+            ->where('is_delete', '=', 0)
+            ->orderBy('id', 'asc')
+            ->limit(10)
+            ->get();
+    }
 // lấy danh sách sản phẩm theo catagory ,  Sub_category
     static public function getProduct($category_id = '', $subcategory_id = '')
     {

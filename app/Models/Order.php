@@ -17,6 +17,7 @@ class Order extends Model
     {
         return self::select('id')
             ->where('is_delete', 0)
+            ->where('is_payment', 1)
             ->count();
 
     }
@@ -24,6 +25,7 @@ class Order extends Model
     {
         return self::select('id')
             ->where('is_delete', 0)
+            ->where('is_payment', 1)
             ->whereDate('created_at', '=', date('Y-m-d'))
             ->count();
     }
@@ -31,6 +33,7 @@ class Order extends Model
     {
         return self::select('id')
             ->where('is_delete', 0)
+            ->where('is_payment', 1)
             ->sum('total_amount');
 
     }
@@ -38,6 +41,7 @@ class Order extends Model
     {
         return self::select('id')
             ->where('is_delete', 0)
+            ->where('is_payment', 1)
             ->whereDate('created_at', '=', date('Y-m-d'))
             ->sum('total_amount');
 
@@ -46,6 +50,7 @@ class Order extends Model
     {
         return Order::select('orders.*')
             ->where('is_delete', 0)
+            ->where('is_payment', 1)
             ->orderBy('id', 'desc')
             ->limit(5)
             ->get();
@@ -54,9 +59,29 @@ class Order extends Model
     {
         return Order::select('orders.*')
             ->where('is_delete', 0)
+            ->where('is_payment', 1)
             ->orderBy('id', 'desc')
             ->paginate(30);
     }
+    static public function getOrderUser($user_id)
+    {
+        return Order::select('orders.*')
+            ->where('user_id', '=', $user_id)
+            ->where('is_delete', 0)
+            ->where('is_payment', 1)
+            ->orderBy('id', 'desc')
+            ->get();
+    }
+    static public function getSingleOrderUser($user_id,$id){
+         return Order::select('orders.*')
+            ->where('user_id', '=', $user_id)
+            ->where('id', '=', $id)
+            ->where('is_delete', 0)
+            ->where('is_payment', 1)
+            ->first();
+
+    }
+
     public function getItem()
     {
         return $this->hasMany(Orderitem::class, 'order_id');

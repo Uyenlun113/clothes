@@ -154,7 +154,7 @@ class PaymentController extends Controller
                 $order_item->size_name = $getSize->name;
                 $order_item->size_amount = $getSize->price;
             }
-            $order_item->total_price = $cart->price;
+            $order_item->total_price = $cart->price * $cart->quantity;
             $order_item->save();
         }
         return redirect('checkout/payment?order_id=' . base64_encode($order->id));
@@ -204,7 +204,7 @@ class PaymentController extends Controller
                     $orderInfo = "Thanh toán qua MoMo";
                     $amount = $getOrder->total_amount;
                     $ipnUrl = "https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b";
-                    $redirectUrl = "http://localhost/asm_php3/paypal/success-payment?order_id=" . $orderInfo . "&amount=" . $amount;
+                    $redirectUrl = "http://localhost/asm_php3/cart";
                     $extraData = "";
                     $requestId = time() . "";
                     $requestType = "payWithATM";
@@ -227,8 +227,12 @@ class PaymentController extends Controller
                         'signature' => $signature
                     );
                     $result = execPostRequest("https://test-payment.momo.vn/v2/gateway/api/create", json_encode($data));
-                    $jsonResult = json_decode($result, true); 
+                    $jsonResult = json_decode($result, true);
+                    $getOrder->is_payment = 1;
+                    $getOrder->save();
+                    Cart::clear();
                     return Redirect::to($jsonResult['payUrl']);
+                    
 
                 } else {
                     abort(404);

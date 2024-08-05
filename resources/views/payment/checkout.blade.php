@@ -27,22 +27,32 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label>Tên *</label>
-                                        <input type="text" name="first_name" class="form-control" required>
+                                        <input type="text"
+                                            value="{{ !empty(Auth::user()->name) ? Auth::user()->name : '' }}"
+                                            name="first_name" class="form-control" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <label>Họ *</label>
-                                        <input type="text" name="last_name"class="form-control" required>
+                                        <input type="text"
+                                            value="{{ !empty(Auth::user()->last_name) ? Auth::user()->last_name : '' }}"
+                                            name="last_name"class="form-control" required>
                                     </div>
                                 </div>
                                 <label>Địa chỉ *</label>
-                                <input type="text" name="address_one" class="form-control"
-                                    placeholder="House number and Street name" required>
-                                <input type="text" name="address_two" class="form-control"
-                                    placeholder="Appartments, suite, unit etc ..." required>
+                                <input type="text"
+                                    value="{{ !empty(Auth::user()->address_one) ? Auth::user()->address_one : '' }}"
+                                    name="address_one" class="form-control" placeholder="House number and Street name"
+                                    required>
+                                <input type="text"
+                                    value="{{ !empty(Auth::user()->address_two) ? Auth::user()->address_two : '' }}"
+                                    name="address_two" class="form-control" placeholder="Appartments, suite, unit etc ..."
+                                    required>
                                 <label>Số điện thoại *</label>
-                                <input type="tel" name="phone" class="form-control" required>
+                                <input type="tel" value="{{ !empty(Auth::user()->phone) ? Auth::user()->phone : '' }}"
+                                    name="phone" class="form-control" required>
                                 <label>Email *</label>
-                                <input type="email" name="email" class="form-control" required>
+                                <input type="email" value="{{ !empty(Auth::user()->email) ? Auth::user()->email : '' }}"
+                                    name="email" class="form-control" required>
                                 <label>Ghi chú</label>
                                 <textarea class="form-control" name="note" cols="30" rows="4"
                                     placeholder="Notes about your order, e.g. special notes for delivery"></textarea>

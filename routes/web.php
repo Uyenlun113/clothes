@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController as ProductHome;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Admin\OrderController;
@@ -28,6 +29,16 @@ use Faker\Provider\ar_EG\Payment;
 Route::get('admin', [AuthController::class, 'login']);
 Route::post('admin', [AuthController::class, 'loginAdmin']);
 Route::get('admin/logout', [AuthController::class, 'logoutAdmin']);
+
+Route::group(['middleware' => 'user'], function () {
+    Route::get('user/order', [UserController::class, 'order']); 
+    Route::get('user/edit-profile', [UserController::class, 'editProfile']); 
+    Route::post('user/edit-profile', [UserController::class, 'updateProfile']); 
+    Route::get('user/change-password', [UserController::class, 'changePassword']); 
+    Route::post('user/change-password', [UserController::class, 'updatePassword']);
+    Route::get('user/order/detail/{id}', [UserController::class, 'OrderDetail']);
+    
+});
 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/dashboard', [DashboardController::class, 'dashboard']);
@@ -58,7 +69,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::post('admin/get_sub_category', [SubCategoryController::class, 'get_sub_category']);
 
-    
+
 
     //Color
     Route::get('admin/color/list', [ColorController::class, 'listColor']);
@@ -82,14 +93,14 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/product/add', [ProductController::class, 'addProduct']);
     Route::get('admin/product/edit/{id}', [ProductController::class, 'edit']);
     Route::post('admin/product/edit/{id}', [ProductController::class, 'editProduct']);
-     Route::get('admin/product/image_delete/{id}', [ProductController::class, 'imageDelete']);
+    Route::get('admin/product/image_delete/{id}', [ProductController::class, 'imageDelete']);
 
-     //Order
-      Route::get('admin/order', [OrderController::class, 'list']);
-      Route::get('admin/order/detail/{id}', [OrderController::class, 'detailOrder']);
-      Route::get('admin/order_status', [OrderController::class, 'orderStatus']);
-      
-      
+    //Order
+    Route::get('admin/order', [OrderController::class, 'list']);
+    Route::get('admin/order/detail/{id}', [OrderController::class, 'detailOrder']);
+    Route::get('admin/order_status', [OrderController::class, 'orderStatus']);
+
+
 });
 
 Route::get('/', [HomeController::class, 'home']);
@@ -111,6 +122,8 @@ Route::post('product/add-to-cart', [PaymentController::class, 'addToCart']);
 Route::get('search', [ProductHome::class, 'getProductSeach']);
 Route::post('get_product_ajax', [ProductHome::class, 'getProductAjax']);
 Route::get('{category?}/{subcategory?}', [ProductHome::class, 'getCategorySub']);
+
+
 
 // Route::get('/', function () {
 //     return view('welcome');
